@@ -1,3 +1,3 @@
 export const RouteNames = {
-  "Leagues" : 'leagues',
-}
+  Leagues: 'leagues',
+};

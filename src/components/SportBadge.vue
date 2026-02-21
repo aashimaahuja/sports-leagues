@@ -1,9 +1,9 @@
 <script setup lang="ts">
 interface SportBadgeProps {
-  sport: string
+  sport: string;
 }
 
-defineProps<SportBadgeProps>()
+defineProps<SportBadgeProps>();
 </script>
 
 <template>

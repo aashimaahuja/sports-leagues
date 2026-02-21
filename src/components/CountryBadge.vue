@@ -1,9 +1,9 @@
 <script setup lang="ts">
 interface CountryBadgeProps {
-  code: string
+  code: string;
 }
 
-defineProps<CountryBadgeProps>()
+defineProps<CountryBadgeProps>();
 </script>
 
 <template>

@@ -1,6 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import LeaguesView from 'src/views/LeaguesView.vue'
-import { RouteNames } from 'src/router/routeNames'
+import { createRouter, createWebHistory } from 'vue-router';
+import LeaguesView from 'src/views/LeaguesView.vue';
+import { RouteNames } from 'src/router/routeNames';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,6 +11,6 @@ const router = createRouter({
       component: LeaguesView,
     },
   ],
-})
+});
 
-export default router
+export default router;

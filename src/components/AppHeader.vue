@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TrophyIcon } from '@heroicons/vue/24/solid'
+import { TrophyIcon } from '@heroicons/vue/24/solid';
 </script>
 
 <template>
