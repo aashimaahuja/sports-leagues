@@ -35,9 +35,9 @@ test.describe('LeagueSeasonBadge', () => {
   });
 
   test.describe('error state', () => {
-    test('renders the error state when an error message is provided', async ({ mount }) => {
+    test('renders the error state when an error is provided', async ({ mount }) => {
       const component = await mount(LeagueSeasonBadge, {
-        props: { ...baseProps, error: 'Failed to fetch seasons' },
+        props: { ...baseProps, error: new Error('Failed to fetch season badge') },
       });
 
       await expect(component.getByTestId('error-state')).toBeAttached();
@@ -45,10 +45,10 @@ test.describe('LeagueSeasonBadge', () => {
 
     test('renders the error message text', async ({ mount }) => {
       const component = await mount(LeagueSeasonBadge, {
-        props: { ...baseProps, error: 'Failed to fetch seasons' },
+        props: { ...baseProps, error: new Error('Failed to fetch season badge') },
       });
 
-      await expect(component.getByTestId('error-state')).toHaveText('Failed to fetch seasons');
+      await expect(component.getByTestId('error-state')).toHaveText('Failed to fetch season badge');
     });
 
     test('does not render the error state when there is no error', async ({ mount }) => {
@@ -139,4 +139,3 @@ test.describe('LeagueSeasonBadge', () => {
     });
   });
 });
-

@@ -91,7 +91,7 @@ test.describe('League detail page', () => {
 
     await page.goto(`/leagues/${LEAGUE_ID}`);
 
-    await expect(page.getByText('Failed to fetch seasons: Internal Server Error')).toBeVisible();
+    await expect(page.getByText('Failed to fetch season badge')).toBeVisible();
   });
 
   test('shows "League not found" when navigating to a non-existent league ID', async ({ page }) => {
