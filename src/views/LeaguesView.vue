@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LeagueList from 'src/components/LeagueList.vue';
+import LeagueList from 'src/components/leagues/LeagueList.vue';
 </script>
 
 <template>

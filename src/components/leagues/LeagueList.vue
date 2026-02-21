@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import LeagueListItem from 'src/components/LeagueListItem.vue';
-import SportFilterSelect from 'src/components/SportFilterSelect.vue';
-import SearchInput from 'src/components/SearchInput.vue';
-import SpinnerLoader from 'src/components/SpinnerLoader.vue';
+import LeagueListItem from 'src/components/leagues/LeagueListItem.vue';
+import SportFilterSelect from 'src/components/leagues/SportFilterSelect.vue';
+import LeagueSearchInput from 'src/components/leagues/LeagueSearchInput.vue';
+import SpinnerLoader from 'src/components/leagues/SpinnerLoader.vue';
 import { useLeaguesStore } from 'src/stores/useLeaguesStore';
 
 const leaguesStore = useLeaguesStore();
@@ -37,19 +37,16 @@ const filteredLeagues = computed(() => {
 <template>
   <div class="mx-auto w-full max-w-3xl px-4 py-6">
     <div class="mb-5 flex gap-3">
-      <SearchInput v-model="searchQuery" />
+      <LeagueSearchInput v-model="searchQuery" />
       <SportFilterSelect v-model="selectedSport" :options="leaguesStore.sports" />
     </div>
 
-    <!-- Results count -->
     <p v-if="filteredLeagues" class="mb-3 text-sm text-gray-500">
       {{ filteredLeagues.length }} league{{ filteredLeagues.length !== 1 ? 's' : '' }} found
     </p>
 
-    <!-- Loader -->
     <SpinnerLoader v-if="leaguesStore.isLoading" />
 
-    <!-- List -->
     <div v-else class="overflow-hidden rounded-xl border border-white/8 bg-[#1a1a1a]">
       <LeagueListItem v-for="league in filteredLeagues" :key="league.idLeague" :league="league" />
       <div
@@ -61,3 +58,4 @@ const filteredLeagues = computed(() => {
     </div>
   </div>
 </template>
+

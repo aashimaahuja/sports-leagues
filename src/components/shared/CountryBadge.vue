@@ -13,3 +13,4 @@ defineProps<CountryBadgeProps>();
     {{ code.toUpperCase() }}
   </div>
 </template>
+

@@ -5,10 +5,10 @@ import { storeToRefs } from 'pinia';
 import { ArrowLeftIcon } from '@heroicons/vue/24/solid';
 import { useLeaguesStore } from 'src/stores/useLeaguesStore';
 import { RouteNames } from 'src/router/routeNames';
-import CountryBadge from 'src/components/CountryBadge.vue';
-import SportBadge from 'src/components/SportBadge.vue';
-import SpinnerLoader from 'src/components/SpinnerLoader.vue';
-import ErrorState from 'src/components/ErrorState.vue';
+import CountryBadge from 'src/components/shared/CountryBadge.vue';
+import SportBadge from 'src/components/shared/SportBadge.vue';
+import SpinnerLoader from 'src/components/leagues/SpinnerLoader.vue';
+import ErrorState from 'src/components/shared/ErrorState.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -42,13 +42,11 @@ onMounted(async () => {
       Back to leagues
     </button>
 
-    <!-- League header skeleton / content -->
     <div v-if="isLeaguesLoading" class="flex justify-center py-16">
       <SpinnerLoader />
     </div>
 
     <template v-else-if="league">
-      <!-- League header -->
       <div class="mb-8 flex items-center gap-4">
         <CountryBadge :code="league.strLeague.slice(0, 2).toUpperCase()" />
         <div class="min-w-0 flex-1">
@@ -60,14 +58,12 @@ onMounted(async () => {
         <SportBadge :sport="league.strSport" />
       </div>
 
-      <!-- Season badge section -->
       <div
         class="flex flex-col items-center justify-center rounded-xl border border-white/8 bg-[#1a1a1a] px-6 py-12"
       >
         <SpinnerLoader v-if="isBadgeLoading" />
         <ErrorState v-else-if="badgeError" :message="badgeError" />
 
-        <!-- Badge found -->
         <div v-else-if="seasonBadge?.strBadge" class="flex flex-col items-center gap-4">
           <img
             :src="seasonBadge.strBadge"
@@ -79,14 +75,12 @@ onMounted(async () => {
           </span>
         </div>
 
-        <!-- No badge available -->
         <p v-else class="text-center text-sm text-gray-500">
           No season badge available for this league.
         </p>
       </div>
     </template>
 
-    <!-- League not found -->
     <div v-else class="py-16 text-center text-sm text-gray-500">League not found.</div>
   </div>
 </template>

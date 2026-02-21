@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { computed } from 'vue';
-import CountryBadge from 'src/components/CountryBadge.vue';
-import SportBadge from 'src/components/SportBadge.vue';
+import CountryBadge from 'src/components/shared/CountryBadge.vue';
+import SportBadge from 'src/components/shared/SportBadge.vue';
 import { ChevronRightIcon } from '@heroicons/vue/24/solid';
 import type { ApiLeague } from 'src/types/league';
 import { RouteNames } from 'src/router/routeNames';
@@ -35,3 +35,4 @@ const leagueDetailRoute = computed(() => ({
     <ChevronRightIcon class="h-4 w-4 shrink-0 text-gray-600" />
   </RouterLink>
 </template>
+

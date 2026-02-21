@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { XMarkIcon } from '@heroicons/vue/24/solid';
-import SpinnerLoader from 'src/components/SpinnerLoader.vue';
-import ErrorState from 'src/components/ErrorState.vue';
+import SpinnerLoader from 'src/components/leagues/SpinnerLoader.vue';
+import ErrorState from 'src/components/shared/ErrorState.vue';
 import type { ApiLeague, ApiSeason } from 'src/types/league';
 
 interface SeasonBadgeModalProps {
@@ -73,3 +73,4 @@ const emit = defineEmits<{
     </Transition>
   </Teleport>
 </template>
+

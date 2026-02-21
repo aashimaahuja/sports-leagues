@@ -11,3 +11,4 @@ defineProps<SportBadgeProps>();
     {{ sport }}
   </span>
 </template>
+
