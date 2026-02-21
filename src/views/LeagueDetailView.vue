@@ -15,8 +15,13 @@ const router = useRouter();
 const leagueId = route.params.id as string;
 
 const leaguesStore = useLeaguesStore();
-const { leagues, isLoading: isLeaguesLoading, isBadgeLoading, badgeError, seasonBadgeCache } =
-  storeToRefs(leaguesStore);
+const {
+  leagues,
+  isLoading: isLeaguesLoading,
+  isBadgeLoading,
+  badgeError,
+  seasonBadgeCache,
+} = storeToRefs(leaguesStore);
 
 const league = computed(() => leagues.value?.find((l) => l.idLeague === leagueId));
 const seasonBadge = computed(() => seasonBadgeCache.value[leagueId]);
@@ -29,7 +34,6 @@ onMounted(async () => {
 
 <template>
   <div class="mx-auto w-full max-w-3xl px-4 py-6">
-   
     <button
       class="mb-6 flex items-center gap-1.5 text-sm text-gray-400 transition-colors hover:text-white"
       @click="router.push({ name: RouteNames.Leagues })"
@@ -80,4 +84,3 @@ onMounted(async () => {
     <div v-else class="py-16 text-center text-sm text-gray-500">League not found.</div>
   </div>
 </template>
-
