@@ -1,79 +1,57 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import type { ApiLeague, ApiSeason } from 'src/types/league';
-import { SPORTS_DB_BASE_URL } from 'src/constants/api';
+import { useFetch } from 'src/composables/useFetch';
 
 export const useLeaguesStore = defineStore('leagues', () => {
-  const leagues = ref<ApiLeague[]>();
-  const isLoading = ref(false);
-  const error = ref<string | null>(null);
+  const {
+    isLoading: isLeaguesLoading,
+    error: leaguesError,
+    getJson: fetchLeagues,
+  } = useFetch<{ leagues: ApiLeague[] }>(`/all_leagues.php`);
 
-  const sports = computed(() => [...new Set(leagues?.value?.map((l) => l.strSport))]);
+  const {
+    isLoading: isBadgeLoading,
+    error: badgeError,
+    getJson: fetchSeasonBadge,
+  } = useFetch<{ seasons: ApiSeason[] | null }>(`/search_all_seasons.php`);
 
-  const fetchLeagues = async (): Promise<void> => {
-    if (leagues.value) return;
-
-    isLoading.value = true;
-    error.value = null;
-
-    try {
-      const response = await fetch(`${SPORTS_DB_BASE_URL}/all_leagues.php`);
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch leagues: ${response.statusText}`);
-      }
-
-      const data: { leagues: ApiLeague[] } = await response.json();
-      leagues.value = data.leagues;
-    } catch (err) {
-      error.value = err instanceof Error ? err.message : 'An unknown error occurred';
-    } finally {
-      isLoading.value = false;
-    }
-  };
-
-  const isBadgeLoading = ref(false);
-  const badgeError = ref<string | null>(null);
-  const seasonBadge = ref<ApiSeason | null>(null);
+  const leaguesData = ref<ApiLeague[] | undefined>(undefined);
+  const sportsList = computed(() => [
+    ...new Set(leaguesData?.value?.map((league) => league.strSport)),
+  ]);
   const seasonBadgeCache = ref<Record<string, ApiSeason | null>>({});
 
-  const fetchSeasonBadge = async (leagueId: string): Promise<void> => {
-    if (leagueId in seasonBadgeCache.value) return;
-
-    isBadgeLoading.value = true;
-    badgeError.value = null;
-    seasonBadge.value = null;
-
-    try {
-      const response = await fetch(
-        `${SPORTS_DB_BASE_URL}/search_all_seasons.php?badge=1&id=${leagueId}`,
-      );
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch seasons: ${response.statusText}`);
-      }
-
-      const data: { seasons: ApiSeason[] | null } = await response.json();
-      const seasons = data.seasons ?? [];
-      seasonBadge.value = seasons.find((s) => s.strBadge !== null) ?? null;
-      seasonBadgeCache.value[leagueId] = seasonBadge.value;
-    } catch (err) {
-      badgeError.value = err instanceof Error ? err.message : 'An unknown error occurred';
-    } finally {
-      isBadgeLoading.value = false;
+  const getLeagues = async () => {
+    if (leaguesData.value) return leaguesData.value;
+    const leagues = await fetchLeagues();
+    if (leagues) {
+      leaguesData.value = leagues.leagues;
+      return leagues;
     }
+    return null;
+  };
+
+  const getSeasonBadge = async (leagueId: string) => {
+    if (leagueId in seasonBadgeCache.value) return seasonBadgeCache.value[leagueId];
+    const seasonBadge = await fetchSeasonBadge({ queryParams: { badge: '1', id: leagueId } });
+    if (seasonBadge) {
+      seasonBadgeCache.value[leagueId] =
+        seasonBadge.seasons?.find((s) => s.strBadge !== null) ?? null;
+      return seasonBadge;
+    }
+    return null;
   };
 
   return {
-    leagues,
-    isLoading,
-    error,
-    sports,
-    fetchLeagues,
+    leagues: leaguesData,
+    isLeaguesLoading,
+    leaguesError,
+    sportsList,
+    getLeagues,
     isBadgeLoading,
     badgeError,
-    seasonBadge,
-    fetchSeasonBadge,
+    getSeasonBadge,
     seasonBadgeCache,
   };
 });
