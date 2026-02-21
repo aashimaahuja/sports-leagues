@@ -51,4 +51,3 @@ test.describe('LeagueDetailHeader', () => {
     await expect(component.getByTestId('sport-badge')).toHaveText('Basketball');
   });
 });
-

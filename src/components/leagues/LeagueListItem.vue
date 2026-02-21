@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { computed } from 'vue';
-import CountryBadge from 'src/components/shared/CountryBadge.vue';
-import SportBadge from 'src/components/shared/SportBadge.vue';
+import CountryBadge from 'src/components/common/CountryBadge.vue';
+import SportBadge from 'src/components/common/SportBadge.vue';
 import { ChevronRightIcon } from '@heroicons/vue/24/solid';
 import type { ApiLeague } from 'src/types/league';
 import { RouteNames } from 'src/router/routeNames';
