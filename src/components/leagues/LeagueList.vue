@@ -6,22 +6,22 @@ import LeagueSearchInput from 'src/components/leagues/LeagueSearchInput.vue';
 import SpinnerLoader from 'src/components/leagues/SpinnerLoader.vue';
 import { useLeaguesStore } from 'src/stores/useLeaguesStore';
 
+const ALL_SPORTS = 'All Sports';
+
 const leaguesStore = useLeaguesStore();
 
 onMounted(() => {
-  if (!leaguesStore.leagues) {
-    leaguesStore.fetchLeagues();
-  }
+  leaguesStore.fetchLeagues();
 });
 
 const searchQuery = ref('');
-const selectedSport = ref('All Sports');
+const selectedSport = ref(ALL_SPORTS);
 
 const filteredLeagues = computed(() => {
   const query = searchQuery.value.toLowerCase().trim();
   return leaguesStore.leagues?.filter((league) => {
     const matchesSport =
-      selectedSport.value === 'All Sports' || league.strSport === selectedSport.value;
+      selectedSport.value === ALL_SPORTS || league.strSport === selectedSport.value;
 
     const matchesSearch =
       !query ||

@@ -15,19 +15,15 @@ const router = useRouter();
 const leagueId = route.params.id as string;
 
 const leaguesStore = useLeaguesStore();
-const { leagues, isLoading: isLeaguesLoading, isBadgeLoading, badgeError, leagueBadgeMap } =
+const { leagues, isLoading: isLeaguesLoading, isBadgeLoading, badgeError, seasonBadgeCache } =
   storeToRefs(leaguesStore);
 
 const league = computed(() => leagues.value?.find((l) => l.idLeague === leagueId));
-const seasonBadge = computed(() => leagueBadgeMap.value[leagueId]);
+const seasonBadge = computed(() => seasonBadgeCache.value[leagueId]);
 
 onMounted(async () => {
-  if (!leagues.value) {
-    await leaguesStore.fetchLeagues();
-  }
-  if (!(leagueId in leagueBadgeMap.value)) {
-    await leaguesStore.fetchSeasonBadge(leagueId);
-  }
+  await leaguesStore.fetchLeagues();
+  await leaguesStore.fetchSeasonBadge(leagueId);
 });
 </script>
 

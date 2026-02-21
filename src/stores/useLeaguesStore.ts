@@ -11,6 +11,8 @@ export const useLeaguesStore = defineStore('leagues', () => {
   const sports = computed(() => [...new Set(leagues?.value?.map((l) => l.strSport))]);
 
   const fetchLeagues = async (): Promise<void> => {
+    if (leagues.value) return;
+
     isLoading.value = true;
     error.value = null;
 
@@ -33,9 +35,11 @@ export const useLeaguesStore = defineStore('leagues', () => {
   const isBadgeLoading = ref(false);
   const badgeError = ref<string | null>(null);
   const seasonBadge = ref<ApiSeason | null>(null);
-  const leagueBadgeMap = ref<Record<string, ApiSeason | null>>({});
+  const seasonBadgeCache = ref<Record<string, ApiSeason | null>>({});
 
   const fetchSeasonBadge = async (leagueId: string): Promise<void> => {
+    if (leagueId in seasonBadgeCache.value) return;
+
     isBadgeLoading.value = true;
     badgeError.value = null;
     seasonBadge.value = null;
@@ -52,7 +56,7 @@ export const useLeaguesStore = defineStore('leagues', () => {
       const data: { seasons: ApiSeason[] | null } = await response.json();
       const seasons = data.seasons ?? [];
       seasonBadge.value = seasons.find((s) => s.strBadge !== null) ?? null;
-      leagueBadgeMap.value[leagueId] = seasonBadge.value;
+      seasonBadgeCache.value[leagueId] = seasonBadge.value;
     } catch (err) {
       badgeError.value = err instanceof Error ? err.message : 'An unknown error occurred';
     } finally {
@@ -70,6 +74,6 @@ export const useLeaguesStore = defineStore('leagues', () => {
     badgeError,
     seasonBadge,
     fetchSeasonBadge,
-    leagueBadgeMap,
+    seasonBadgeCache,
   };
 });
