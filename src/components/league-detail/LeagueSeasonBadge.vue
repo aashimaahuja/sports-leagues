@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Spinner from 'src/components/shared/Spinner.vue';
-import ErrorState from 'src/components/shared/ErrorState.vue';
+import Spinner from 'src/components/common/Spinner.vue';
+import ErrorState from 'src/components/common/ErrorState.vue';
 import type { ApiSeason } from 'src/types/league';
 
 interface LeagueSeasonBadgeProps {
   leagueName: string;
   isLoading: boolean;
-  error: string | null;
+  error: Error | null;
   seasonBadge: ApiSeason | null | undefined;
 }
 
@@ -18,7 +18,11 @@ defineProps<LeagueSeasonBadgeProps>();
     class="flex flex-col items-center justify-center rounded-xl border border-white/8 bg-[#1a1a1a] px-6 py-12"
   >
     <Spinner v-if="isLoading" data-testid="spinner" />
-    <ErrorState v-else-if="error" data-testid="error-state" :message="error" />
+    <ErrorState
+      v-else-if="error"
+      data-testid="error-state"
+      message="Failed to fetch season badge"
+    />
 
     <div v-else-if="seasonBadge?.strBadge" class="flex flex-col items-center gap-4">
       <img
@@ -27,7 +31,10 @@ defineProps<LeagueSeasonBadgeProps>();
         :alt="`${leagueName} – ${seasonBadge.strSeason} badge`"
         class="h-48 w-48 rounded-xl object-contain"
       />
-      <span data-testid="season-label" class="rounded-md bg-white/10 px-3 py-1 text-sm text-gray-300">
+      <span
+        data-testid="season-label"
+        class="rounded-md bg-white/10 px-3 py-1 text-sm text-gray-300"
+      >
         {{ seasonBadge.strSeason }}
       </span>
     </div>
@@ -37,4 +44,3 @@ defineProps<LeagueSeasonBadgeProps>();
     </p>
   </div>
 </template>
-
