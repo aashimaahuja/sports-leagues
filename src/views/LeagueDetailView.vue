@@ -7,7 +7,7 @@ import { useLeaguesStore } from 'src/stores/useLeaguesStore';
 import { RouteNames } from 'src/router/routeNames';
 import CountryBadge from 'src/components/shared/CountryBadge.vue';
 import SportBadge from 'src/components/shared/SportBadge.vue';
-import SpinnerLoader from 'src/components/leagues/SpinnerLoader.vue';
+import Spinner from 'src/components/shared/Spinner.vue';
 import ErrorState from 'src/components/shared/ErrorState.vue';
 
 const route = useRoute();
@@ -39,7 +39,7 @@ onMounted(async () => {
     </button>
 
     <div v-if="isLeaguesLoading" class="flex justify-center py-16">
-      <SpinnerLoader />
+      <Spinner />
     </div>
 
     <template v-else-if="league">
@@ -57,7 +57,7 @@ onMounted(async () => {
       <div
         class="flex flex-col items-center justify-center rounded-xl border border-white/8 bg-[#1a1a1a] px-6 py-12"
       >
-        <SpinnerLoader v-if="isBadgeLoading" />
+        <Spinner v-if="isBadgeLoading" />
         <ErrorState v-else-if="badgeError" :message="badgeError" />
 
         <div v-else-if="seasonBadge?.strBadge" class="flex flex-col items-center gap-4">
