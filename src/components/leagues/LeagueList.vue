@@ -58,4 +58,3 @@ const filteredLeagues = computed(() => {
     </div>
   </div>
 </template>
-

@@ -12,4 +12,3 @@ import { TrophyIcon } from '@heroicons/vue/24/solid';
     </div>
   </header>
 </template>
-

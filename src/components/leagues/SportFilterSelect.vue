@@ -23,4 +23,3 @@ const selectedOption = defineModel<string>();
     />
   </div>
 </template>
-
