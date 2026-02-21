@@ -6,7 +6,7 @@ interface SportFilterSelectProps {
 }
 
 defineProps<SportFilterSelectProps>();
-const selectedOption = defineModel<string>();
+const selectedOption = defineModel<string>({ default: 'All Sports' });
 </script>
 
 <template>
