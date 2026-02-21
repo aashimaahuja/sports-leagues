@@ -9,20 +9,24 @@
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{ts,vue}\"",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:ct": "playwright test -c playwright-ct.config.ts"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
     "pinia": "^3.0.4",
+    "vitest": "^4.0.18",
     "vue": "^3.5.25",
     "vue-router": "^5.0.3"
   },
   "devDependencies": {
+    "@playwright/experimental-ct-vue": "^1.58.2",
     "@prettier/plugin-xml": "^3.4.2",
     "@tailwindcss/vite": "^4.2.0",
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.2",
     "@vue/tsconfig": "^0.8.1",
+    "cypress": "^15.10.0",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4.2.0",

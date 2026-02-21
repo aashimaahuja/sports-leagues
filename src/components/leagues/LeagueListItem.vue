@@ -24,14 +24,22 @@ const leagueDetailRoute = computed(() => ({
     :to="leagueDetailRoute"
     class="flex items-center gap-4 border-b border-white/8 px-5 py-4 transition-colors hover:bg-white/5"
   >
-    <CountryBadge :code="league.strLeague.slice(0, 2).toUpperCase()" />
+    <CountryBadge data-testid="country-badge" :code="league.strLeague.slice(0, 2).toUpperCase()" />
     <div class="min-w-0 flex-1">
-      <p class="truncate text-sm leading-snug font-medium text-white">{{ league.strLeague }}</p>
-      <p v-if="league.strLeagueAlternate" class="mt-0.5 truncate text-xs text-gray-500">
+      <p data-testid="league-name" class="truncate text-sm leading-snug font-medium text-white">
+        {{ league.strLeague }}
+      </p>
+      <p
+        v-if="league.strLeagueAlternate"
+        data-testid="league-alternate-name"
+        class="mt-0.5 truncate text-xs text-gray-500"
+      >
         {{ league.strLeagueAlternate }}
       </p>
     </div>
-    <SportBadge :sport="league.strSport" />
-    <ChevronRightIcon class="h-4 w-4 shrink-0 text-gray-600" />
+    <SportBadge data-testid="sport-badge" :sport="league.strSport" />
+    <span data-testid="chevron-icon">
+      <ChevronRightIcon class="h-4 w-4 shrink-0 text-gray-600" />
+    </span>
   </RouterLink>
 </template>
