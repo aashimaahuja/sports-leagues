@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ALL_SPORTS } from 'src/constants/constants';
 import { ChevronDownIcon } from '@heroicons/vue/24/outline';
 
 interface SportFilterSelectProps {
@@ -6,7 +7,7 @@ interface SportFilterSelectProps {
 }
 
 defineProps<SportFilterSelectProps>();
-const selectedOption = defineModel<string>({ default: 'All Sports' });
+const selectedOption = defineModel<string>({ default: ALL_SPORTS });
 </script>
 
 <template>
@@ -16,7 +17,7 @@ const selectedOption = defineModel<string>({ default: 'All Sports' });
       data-testid="sport-filter-select"
       class="cursor-pointer appearance-none rounded-lg border border-white/10 bg-[#1e1e1e] py-2.5 pr-9 pl-4 text-sm text-white focus:ring-1 focus:ring-emerald-500 focus:outline-none"
     >
-      <option value="All Sports">All Sports</option>
+      <option :value="ALL_SPORTS">{{ ALL_SPORTS }}</option>
       <option v-for="sport in options" :key="sport" :value="sport">{{ sport }}</option>
     </select>
     <span data-testid="chevron-icon">

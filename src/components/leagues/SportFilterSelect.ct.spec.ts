@@ -1,16 +1,17 @@
 import { test, expect } from '@playwright/experimental-ct-vue';
 import SportFilterSelect from './SportFilterSelect.vue';
+import { ALL_SPORTS } from 'src/constants/constants';
 
 const SPORTS = ['Soccer', 'Basketball', 'Tennis'];
 
 test.describe('SportFilterSelect', () => {
-  test('renders the "All Sports" default option', async ({ mount }) => {
+  test('renders the default option', async ({ mount }) => {
     const component = await mount(SportFilterSelect, {
       props: { options: SPORTS },
     });
 
     const select = component.getByTestId('sport-filter-select');
-    await expect(select.locator('option[value="All Sports"]')).toHaveText('All Sports');
+    await expect(select.locator(`option[value="${ALL_SPORTS}"]`)).toHaveText(ALL_SPORTS);
   });
 
   test('renders all provided sport options', async ({ mount }) => {
@@ -49,7 +50,7 @@ test.describe('SportFilterSelect', () => {
       props: { options: SPORTS },
     });
 
-    await expect(component.getByTestId('sport-filter-select')).toHaveValue('All Sports');
+    await expect(component.getByTestId('sport-filter-select')).toHaveValue(ALL_SPORTS);
   });
 
   test('reflects the provided modelValue as the selected option', async ({ mount }) => {
@@ -68,7 +69,7 @@ test.describe('SportFilterSelect', () => {
     const component = await mount(SportFilterSelect, {
       props: {
         options: SPORTS,
-        modelValue: 'All Sports',
+        modelValue: ALL_SPORTS,
         'onUpdate:modelValue': (val: string | undefined) => emittedValues.push(val ?? ''),
       },
     });
@@ -90,8 +91,8 @@ test.describe('SportFilterSelect', () => {
       },
     });
 
-    await component.getByTestId('sport-filter-select').selectOption('All Sports');
-    expect(emittedValues).toContain('All Sports');
+    await component.getByTestId('sport-filter-select').selectOption(ALL_SPORTS);
+    expect(emittedValues).toContain(ALL_SPORTS);
   });
 
   test('renders the chevron icon', async ({ mount }) => {
@@ -112,4 +113,3 @@ test.describe('SportFilterSelect', () => {
     await expect(select).toHaveClass(/cursor-pointer/);
   });
 });
-
