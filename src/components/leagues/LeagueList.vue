@@ -3,7 +3,7 @@ import { ref, computed, onMounted } from 'vue';
 import LeagueListItem from 'src/components/leagues/LeagueListItem.vue';
 import SportFilterSelect from 'src/components/leagues/SportFilterSelect.vue';
 import LeagueSearchInput from 'src/components/leagues/LeagueSearchInput.vue';
-import SpinnerLoader from 'src/components/leagues/SpinnerLoader.vue';
+import Spinner from 'src/components/shared/Spinner.vue';
 import { useLeaguesStore } from 'src/stores/useLeaguesStore';
 
 const ALL_SPORTS = 'All Sports';
@@ -45,7 +45,7 @@ const filteredLeagues = computed(() => {
       {{ filteredLeagues.length }} league{{ filteredLeagues.length !== 1 ? 's' : '' }} found
     </p>
 
-    <SpinnerLoader v-if="leaguesStore.isLoading" />
+    <Spinner v-if="leaguesStore.isLoading" />
 
     <div v-else class="overflow-hidden rounded-xl border border-white/8 bg-[#1a1a1a]">
       <LeagueListItem v-for="league in filteredLeagues" :key="league.idLeague" :league="league" />
