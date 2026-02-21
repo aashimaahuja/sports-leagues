@@ -1,27 +1,28 @@
 <script setup lang="ts">
-import type { League } from 'src/types/league'
 import CountryBadge from 'src/components/CountryBadge.vue'
 import SportBadge from 'src/components/SportBadge.vue'
 import { ChevronRightIcon } from '@heroicons/vue/24/solid'
+import type { ApiLeague } from 'src/types/league'
 
-defineProps<{
-  league: League
-}>()
+interface LeagueListItemProps {
+  league: ApiLeague
+}
+
+defineProps<LeagueListItemProps>()
 </script>
 
 <template>
   <div
-    class="flex items-center gap-4 px-5 py-4 border-b border-white/8 hover:bg-white/5 cursor-pointer transition-colors"
+    class="flex cursor-pointer items-center gap-4 border-b border-white/8 px-5 py-4 transition-colors hover:bg-white/5"
   >
-    <CountryBadge :code="league.countryCode" />
-    <div class="flex-1 min-w-0">
-      <p class="text-white text-sm font-medium leading-snug truncate">{{ league.name }}</p>
-      <p v-if="league.aliases.length" class="text-gray-500 text-xs mt-0.5 truncate">
-        {{ league.aliases.join(', ') }}
+    <CountryBadge :code="league.strLeague.slice(0, 2).toUpperCase()" />
+    <div class="min-w-0 flex-1">
+      <p class="truncate text-sm leading-snug font-medium text-white">{{ league.strLeague }}</p>
+      <p v-if="league.strLeagueAlternate" class="mt-0.5 truncate text-xs text-gray-500">
+        {{ league.strLeagueAlternate }}
       </p>
     </div>
-    <SportBadge :sport="league.sport" />
-    <ChevronRightIcon class="w-4 h-4 text-gray-600 shrink-0" />
+    <SportBadge :sport="league.strSport" />
+    <ChevronRightIcon class="h-4 w-4 shrink-0 text-gray-600" />
   </div>
 </template>
-

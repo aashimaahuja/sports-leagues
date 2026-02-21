@@ -1,4 +1,3 @@
-export enum RouteNames {
-  Leagues = 'leagues',
+export const RouteNames = {
+  "Leagues" : 'leagues',
 }
-

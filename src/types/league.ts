@@ -1,11 +1,3 @@
-export interface League {
-  id: string
-  name: string
-  aliases: string[]
-  sport: string
-  countryCode: string
-}
-
 /** Raw shape returned by TheSportsDB API */
 export interface ApiLeague {
   idLeague: string
@@ -13,4 +5,3 @@ export interface ApiLeague {
   strSport: string
   strLeagueAlternate: string
 }
-

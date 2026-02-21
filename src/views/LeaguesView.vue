@@ -5,4 +5,3 @@ import LeagueList from 'src/components/LeagueList.vue'
 <template>
   <LeagueList />
 </template>
-
