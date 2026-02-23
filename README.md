@@ -54,6 +54,24 @@ Runs Prettier over all `.ts` and `.vue` files under `src/`. The config lives in 
 
 There are three separate test suites, each with its own runner and scope.
 
+#### Make sure you run this command before testing
+
+```bash
+npx playwright install chromium
+```
+#### Component tests (Playwright CT)
+
+```bash
+npm run test:ct
+```
+
+Mounts individual Vue components in a real browser (Chromium) using `@playwright/experimental-ct-vue`. Test files follow the `*.ct.spec.ts` naming pattern and live alongside the components in `src/`. No running dev server is needed  Playwright CT spins up its own environment on port 3100.
+
+#### End-to-end tests (Playwright)
+
+```bash
+npm run test:e2e
+```
 #### Unit tests (Vitest)
 
 ```bash
@@ -68,19 +86,6 @@ npm run test:watch
 
 Runs Vitest in interactive watch mode  re-runs affected tests on every file save. Use this while writing or debugging unit tests.
 
-#### Component tests (Playwright CT)
-
-```bash
-npm run test:ct
-```
-
-Mounts individual Vue components in a real browser (Chromium) using `@playwright/experimental-ct-vue`. Test files follow the `*.ct.spec.ts` naming pattern and live alongside the components in `src/`. No running dev server is needed  Playwright CT spins up its own environment on port 3100.
-
-#### End-to-end tests (Playwright)
-
-```bash
-npm run test:e2e
-```
 
 Runs full browser tests against the app using the `*.e2e.spec.ts` files in the `e2e/` folder. Playwright automatically starts the dev server on `http://localhost:5173` before the suite runs and shuts it down afterwards, so you don't need to start it manually. If a dev server is already running on that port, it will be reused.
 
