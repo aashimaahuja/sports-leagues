@@ -1,6 +1,6 @@
 # Logs
 node_modules
 playwright-report
-playwright
+playwright/.cache
 test-results
 dist
